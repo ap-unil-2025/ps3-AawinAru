@@ -18,7 +18,17 @@ def get_numbers_from_user():
         # TODO: Check if user typed 'done'
         # TODO: Try to convert to float and add to list
         # TODO: Handle invalid input gracefully
-        pass
+        entry = input("Enter a number or done: ")
+
+        if entry.lower() == "done":
+            break #stop asking
+        
+        try:
+            number = float(entry)   #convert to number
+            numbers.append(number)   #.append() to add a number to the end of a list
+
+        except ValueError:
+            print("Invalid input, please try again with a number or “done“.")
 
     return numbers
 
@@ -53,6 +63,23 @@ def analyze_numbers(numbers):
     # TODO: Count even numbers (hint: use modulo operator)
     # TODO: Count odd numbers
 
+    analysis["count"] = len(numbers)
+    analysis["sum"] = sum(numbers)
+    analysis["average"] = sum(numbers) / len(numbers)
+    analysis["minimum"] = min(numbers)
+    analysis["maximum"] = max(numbers)
+
+    even_count = 0
+    odd_count = 0
+    for n in numbers:
+        if n % 2 == 0:              # % pour le reste des divisions
+            even_count += 1
+        else:
+            odd_count += 1
+
+    analysis["even_count"] = even_count
+    analysis["odd_count"] = odd_count
+
     return analysis
 
 
@@ -75,7 +102,14 @@ def display_analysis(analysis):
     # Sum: 25
     # Average: 5.00
     # etc.
-    pass
+    
+    print(f"Count: {analysis['count']}")
+    print(f"Sum: {analysis['sum']}")
+    print(f"Average: {analysis['average']:.2f}") #round to 2 decimal
+    print(f"Minimum: {analysis['minimum']}")
+    print(f"Maximum: {analysis['maximum']}")
+    print(f"Even numbers: {analysis['even_count']}")
+    print(f"Odd numbers: {analysis['odd_count']}")
 
 
 def main():

@@ -32,7 +32,10 @@ def count_words(filename):
     """
     # TODO: Open file and count words
     # Hint: Use split() to separate words
-    pass
+    with open(filename, 'r') as f:      # r = read mode; w = write mode; a = append mode (add new content to the end)
+        text = f.read()
+        words = text.split() #split text by spaces
+        return len(words)
 
 
 def count_lines(filename):
@@ -46,7 +49,9 @@ def count_lines(filename):
         int: Total number of lines
     """
     # TODO: Open file and count lines
-    pass
+    with open(filename, 'r') as f:
+        lines = f.readlines()   # read all lines into a list
+        return len(lines)
 
 
 def count_characters(filename, include_spaces=True):
@@ -62,7 +67,11 @@ def count_characters(filename, include_spaces=True):
     """
     # TODO: Open file and count characters
     # If include_spaces is False, don't count spaces
-    pass
+    with open(filename, 'r') as f:
+        text = f.read()
+        if not include_spaces:
+            text = text.replace(" ", "") # remplace les " " en "" donc espace pas compter
+        return len(text)
 
 
 def find_longest_word(filename):
@@ -77,7 +86,14 @@ def find_longest_word(filename):
     """
     # TODO: Find the longest word
     # Hint: You might need to remove punctuation
-    pass
+    import string                           #import tous les lettres, numeros, ponctuation
+    with open(filename, 'r') as f:
+        text = f.read()
+        for p in string.punctuation:        #import les ponctuation
+            text = text.replace(p, "")      #remove punctuation
+        words = text.split()
+        longest = max(words, key=len)       # max word by lenght
+        return longest
 
 
 def word_frequency(filename):
@@ -101,6 +117,13 @@ def word_frequency(filename):
     # TODO: Remove punctuation (use string.punctuation)
     # TODO: Count frequency of each word
 
+    with open(filename, 'r') as f:
+        text = f.read().lower()         #lowercase
+    for p in string.punctuation:
+        text = text.replace(p, "")      
+    words = text.split()
+    for word in words:
+        frequency[word] = frequency.get(word, 0) + 1        # counting how many times each word appears
     return frequency
 
 
